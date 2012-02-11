@@ -72,6 +72,15 @@ Authors
 * Gioele Barabucci <http://svario.it/gioele>
 
 
+Acknowledgements
+----------------
+
+The external IP is retrieved via the [whatismyip.com](http://whatismyip.com)
+automation service. Please read and follow the
+[rules concerning automated retrieval](http://www.whatismyip.com/faq/automation.asp);
+do not abuse their service.
+
+
 License
 -------
 

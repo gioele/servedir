@@ -48,7 +48,7 @@ def start_server(dir, port)
 	private_list_file = File.join(dir, PRIVATE_LIST_FILE)
 	if File.exist?(private_list_file)
 		patterns = File.readlines(private_list_file).map(&:strip)
-		ignored_files = patterns
+		ignored_files = patterns.reject(&:empty?).reject { |f| f.start_with?('#') }
 		ignored_files << PRIVATE_LIST_FILE
 		config[:DocumentRootOptions][:NondisclosureName] = ignored_files
 	end

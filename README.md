@@ -10,6 +10,18 @@ Ruby 1.8.7, Ruby 1.9.3 and JRuby.
 This program will not try to open ports on the NAT gateway: it expects ports
 to be already configured in the proper way.
 
+
+Installation
+------------
+
+`servedir` do not require installation, it is a single standalone executable
+script.
+
+However, if desired, it is possible to install `servedir` via RubyGems:
+
+    $ gem install servedir
+
+
 Usage
 -----
 

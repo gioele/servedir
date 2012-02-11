@@ -7,6 +7,7 @@ require 'open-uri'
 require 'webrick'
 
 IP_DISCO_SERVICE = 'http://automation.whatismyip.com/n09230945.asp'
+PRIVATE_LIST_FILE = '.private'
 MAX_PORT = 2**16
 
 def check_args(dir, port)
@@ -41,7 +42,16 @@ def start_server(dir, port)
 	config = {
 		:DocumentRoot => dir,
 		:Port => port,
+		:DocumentRootOptions => { :FancyIndexing => true },
 	}
+
+	private_list_file = File.join(dir, PRIVATE_LIST_FILE)
+	if File.exist?(private_list_file)
+		patterns = File.readlines(private_list_file).map(&:strip)
+		ignored_files = patterns
+		ignored_files << PRIVATE_LIST_FILE
+		config[:DocumentRootOptions][:NondisclosureName] = ignored_files
+	end
 
 	server = WEBrick::HTTPServer.new(config)
 

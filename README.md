@@ -15,7 +15,7 @@ Usage
 
 On the box behind NAT:
 
-    $ ./servedir ~/Public 13428
+    $ servedir ~/Public 13428
 
     Server starting... (CTRL-C to terminate)
       local address: <http://localhost:13428/>

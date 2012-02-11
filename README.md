@@ -61,7 +61,7 @@ Private files
 -------------
 
 It is possible to block access to private files and also hide them from the
-directory listing. The list of private files must resides a file named
+directory listing. The list of private files must resides in a file named
 `.private` in the served directory; each line must be either a file name or a
 glob pattern.
 

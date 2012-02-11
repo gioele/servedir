@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
 
 	spec.authors  = ['Gioele Barabucci']
 	spec.email    = ['gioele@svario.it']
-	spec.homepage = 'http://github.com/gioele/servedir'
+	spec.homepage = 'https://github.com/gioele/servedir'
 	spec.summary  = summary
 	spec.license  = 'UNLICENSE'
  

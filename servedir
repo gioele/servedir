@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+
+# This is free and unencumbered software released into the public domain.
+# See the `UNLICENSE` file or <http://unlicense.org/> for more details.
+
+require 'open-uri'
+require 'webrick'
+
+IP_DISCO_SERVICE = 'http://automation.whatismyip.com/n09230945.asp'
+MAX_PORT = 2**16
+
+def check_args(dir, port)
+	if !File.directory?(File.expand_path(dir))
+		puts "WARNING: '#{dir}' is not a directory"
+	end
+
+	if port > MAX_PORT
+		puts "ERROR: port numer too high, #{port} is > #{MAX_PORT}"
+		exit
+	end
+end
+
+def print_addresses(dir, port)
+	begin
+		ip = open(IP_DISCO_SERVICE).read
+	rescue Errno::ENETUNREACH => err
+		puts "WARNING: Cannot reach IP discovery service"
+		ip = "NOT_AVAILABLE"
+	end
+
+	local_uri = "http://localhost:#{port}/"
+	remote_uri = "http://#{ip}:#{port}/"
+
+	puts "Server starting... (CTRL-C to terminate)"
+	puts "  local address: <#{local_uri}>"
+	puts "  public address: <#{remote_uri}>"
+	puts
+end
+
+def start_server(dir, port)
+	config = {
+		:DocumentRoot => dir,
+		:Port => port,
+	}
+
+	server = WEBrick::HTTPServer.new(config)
+
+	['INT', 'TERM'].each { |signal|
+		trap(signal) {server.shutdown}
+	}
+
+	server.start
+end
+
+if ARGV.count < 2
+	puts "servedir [DIRECTORY] [PORT]"
+	exit
+end
+
+dir = ARGV[0] || Dir.pwd
+port = ARGV[1].to_i || 8080
+
+check_args(dir, port)
+print_addresses(dir, port)
+start_server(dir, port)

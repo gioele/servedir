@@ -11,8 +11,8 @@ Gem::Specification.new do |spec|
 	spec.email    = ['gioele@svario.it']
 	spec.homepage = 'https://github.com/gioele/servedir'
 	spec.summary  = summary
-	spec.license  = 'UNLICENSE'
+	spec.license  = 'COPYING'
  
-	spec.files        = %w(bin/servedir) + %w(README.md UNLICENSE)
+	spec.files        = %w(bin/servedir) + %w(README.md COPYING)
 	spec.executables  = ['servedir']
 end

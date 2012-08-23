@@ -5,12 +5,14 @@
 
 require 'open-uri'
 require 'socket'
+require 'timeout'
 require 'webrick'
 
 IP_DISCO_SERVICE = 'http://automation.whatismyip.com/n09230945.asp'
 LAN_IP = '169.254.0.1'
 PRIVATE_LIST_FILE = '.private'
 MAX_PORT = 2**16
+MAX_DISCOVER_WAIT = 4 # seconds
 
 def check_args(dir, port)
 	if !File.directory?(File.expand_path(dir))
@@ -24,8 +26,12 @@ def check_args(dir, port)
 end
 
 def print_addresses(dir, port)
+	puts "Discovering addresses and hostnames..."
+
 	begin
-		ip = open(IP_DISCO_SERVICE).read
+		ip = Timeout::timeout(MAX_DISCOVER_WAIT) do
+			open(IP_DISCO_SERVICE).read
+		end
 	rescue
 		puts "WARNING: Cannot reach IP discovery service"
 		ip = "NOT_AVAILABLE"
@@ -43,6 +49,7 @@ def print_addresses(dir, port)
 	remote_uri = "http://#{ip}:#{port}/"
 
 	puts "Server starting... (CTRL-C to terminate)"
+	puts
 	puts "  local address: <#{local_uri}>"
 	puts "  LAN address: <#{lan_uri}>"
 	puts "  public address: <#{remote_uri}>"

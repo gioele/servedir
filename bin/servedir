@@ -4,9 +4,11 @@
 # See the `UNLICENSE` file or <http://unlicense.org/> for more details.
 
 require 'open-uri'
+require 'socket'
 require 'webrick'
 
 IP_DISCO_SERVICE = 'http://automation.whatismyip.com/n09230945.asp'
+LAN_IP = '169.254.0.1'
 PRIVATE_LIST_FILE = '.private'
 MAX_PORT = 2**16
 
@@ -24,16 +26,25 @@ end
 def print_addresses(dir, port)
 	begin
 		ip = open(IP_DISCO_SERVICE).read
-	rescue Errno::ENETUNREACH => err
+	rescue
 		puts "WARNING: Cannot reach IP discovery service"
 		ip = "NOT_AVAILABLE"
 	end
 
+	begin
+		lan_ip = UDPSocket.open { |s| s.connect(LAN_IP, 1); s.addr[2] }
+	rescue
+		puts "WARNING: Cannot find LAN-local hostname"
+		lan_ip = "NOT_AVAILABLE"
+	end
+
 	local_uri = "http://localhost:#{port}/"
+	lan_uri = "http://#{lan_ip}:#{port}/"
 	remote_uri = "http://#{ip}:#{port}/"
 
 	puts "Server starting... (CTRL-C to terminate)"
 	puts "  local address: <#{local_uri}>"
+	puts "  LAN address: <#{lan_uri}>"
 	puts "  public address: <#{remote_uri}>"
 	puts
 end

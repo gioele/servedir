@@ -14,7 +14,7 @@ to be already configured in the proper way.
 Installation
 ------------
 
-`servedir` do not require installation, it is a single standalone executable
+`servedir` does not require installation, it is a single standalone executable
 script.
 
 However, if desired, it is possible to install `servedir` via RubyGems:
@@ -25,12 +25,18 @@ However, if desired, it is possible to install `servedir` via RubyGems:
 Usage
 -----
 
+Launch `servedir` specifying the directory to be served and the port to be
+used.
+
 On the box behind NAT:
 
-    $ servedir ~/Public 13428
+    $ servedir ~/Public/ 13428
 
+    Discovering addresses and hostnames...
     Server starting... (CTRL-C to terminate)
+
       local address: <http://localhost:13428/>
+      LAN address: <http://fancy-box.local:13428/>
       public address: <http://84.136.123.62:13428/>
 
     [2012-02-11 13:24:01] INFO  WEBrick 1.3.1

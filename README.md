@@ -81,9 +81,9 @@ Authors
 Acknowledgements
 ----------------
 
-The external IP is retrieved via the [whatismyip.com](http://whatismyip.com)
+The external IP is retrieved via the [ipecho.net](http://ipecho.net)
 automation service. Please read and follow the
-[rules concerning automated retrieval](http://www.whatismyip.com/faq/automation.asp);
+[rules concerning automated retrieval](http://ipecho.net/developers.html);
 do not abuse their service.
 
 

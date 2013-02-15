@@ -10,7 +10,7 @@ require 'socket'
 require 'timeout'
 require 'webrick'
 
-IP_DISCO_SERVICE = 'http://automation.whatismyip.com/n09230945.asp'
+IP_DISCO_SERVICE = 'http://ipecho.net/plain'
 LAN_IP = '169.254.0.1'
 PRIVATE_LIST_FILE = '.private'
 MAX_PORT = 2**16

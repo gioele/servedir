@@ -82,6 +82,24 @@ def start_server(dir, port)
 	server.start
 end
 
+class String
+	alias_method :sub_orig, :sub
+	def sub(*args)
+		if block_given?
+			self
+		else
+			sub_orig(*args)
+		end
+	end
+
+	alias_method :"*_orig", :"*"
+	def *(times)
+		times = [1, times].max
+
+		self.send(:"*_orig", times)
+	end
+end
+
 if ARGV.count < 2
 	puts "servedir [DIRECTORY] [PORT]"
 	exit

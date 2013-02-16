@@ -100,6 +100,14 @@ class String
 	end
 end
 
+class WEBrick::HTTPServlet::FileHandler
+	alias_method :set_dir_list_orig, :set_dir_list
+	def set_dir_list(req, res)
+		set_dir_list_orig(req, res)
+		res['content-type'] = 'text/html; charset=UTF-8'
+	end
+end
+
 if ARGV.count < 2
 	puts "servedir [DIRECTORY] [PORT]"
 	exit
